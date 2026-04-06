@@ -1,0 +1,767 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BidVault — Auction System</title>
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===================== TOAST ===================== -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toast-icon">✓</span>
+  <span id="toast-text">Action completed</span>
+</div>
+
+<!-- ===================== NAV ===================== -->
+<nav>
+  <div class="nav-logo" onclick="window.location.href='/'">⚡ <span>Bid</span>Vault</div>
+  <div class="nav-center">
+    <button onclick="showPage('auth')" id="nav-auth">Login / Register</button>
+    <button onclick="showPage('bid')" id="nav-bid">Live Auction</button>
+    <button onclick="showPage('seller')" id="nav-seller">Seller Dashboard</button>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <span class="theme-icon theme-icon-moon">🌙</span>
+      <span class="theme-icon theme-icon-sun">☀️</span>
+    </button>
+    <button class="btn-nav" onclick="showPage('auth')">Sign In</button>
+    <button class="btn-nav filled" onclick="showPage('auth')">Register</button>
+  </div>
+</nav>
+
+<!-- ===================== PAGE 1: AUTH ===================== -->
+<div class="page" id="page-auth">
+  <div class="auth-left">
+    <div class="auth-left-grid"></div>
+    <div class="auth-left-glow"></div>
+    <div class="auth-left-content">
+      <div class="label" style="margin-bottom:1.2rem;">⚡ BidVault — Premium Auction</div>
+      <div class="auth-left-tagline">Bid. Win.<br><em>Own the Rare.</em></div>
+      <p class="auth-left-sub">Join thousands of collectors and connoisseurs on India's most trusted platform for rare art, antiques, and collectibles.</p>
+    </div>
+    <div class="auth-left-stats">
+      <div>
+        <div class="auth-stat-val">18<span>K+</span></div>
+        <div class="auth-stat-label">Bidders</div>
+      </div>
+      <div>
+        <div class="auth-stat-val">₹4.2<span>Cr</span></div>
+        <div class="auth-stat-label">Volume</div>
+      </div>
+      <div>
+        <div class="auth-stat-val">340<span>+</span></div>
+        <div class="auth-stat-label">Sold</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <div class="auth-box">
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('login', this)">Sign In</button>
+        <button class="auth-tab" onclick="switchTab('register', this)">Create Account</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div class="auth-form active" id="form-login">
+        <div class="auth-social">
+          <button class="btn-social">🌐 Google</button>
+          <button class="btn-social">📘 Facebook</button>
+        </div>
+        <div class="form-divider"><span>or continue with email</span></div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" placeholder="••••••••">
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="remember">
+          <label for="remember">Remember me for 30 days</label>
+        </div>
+        <button class="btn-primary btn-full" onclick="handleLogin()">Sign In to BidVault →</button>
+        <div class="auth-note" style="margin-top:1rem;"><a href="#">Forgot your password?</a></div>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div class="auth-form" id="form-register">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="Arjun">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="Mehta">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" class="form-input" placeholder="+91 98765 43210">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" placeholder="Min. 8 characters">
+        </div>
+        <div class="form-group">
+          <label class="form-label">I want to</label>
+          <select class="form-input">
+            <option>Bid on items</option>
+            <option>Sell items</option>
+            <option>Both bid and sell</option>
+          </select>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="agree">
+          <label for="agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+        </div>
+        <button class="btn-primary btn-full" onclick="handleRegister()">Create My Account →</button>
+      </div>
+
+      <div class="auth-note" style="margin-top:1.5rem;">
+        🔒 256-bit SSL encryption. Your data is always secure.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 2: BIDDING ROOM ===================== -->
+<div class="page" id="page-bid">
+  <div class="bid-room-layout">
+    <!-- MAIN CONTENT -->
+    <div class="bid-main">
+      <!-- Item Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.8rem;">
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <div class="live-badge"><div class="live-dot"></div> Live Now</div>
+          <span style="font-size:0.72rem;color:var(--text3);letter-spacing:0.1em;">LOT #0042</span>
+        </div>
+        <div style="display:flex;gap:0.6rem;">
+          <button class="btn-outline" style="padding:0.4rem 0.9rem;font-size:0.7rem;">❤️ Watch</button>
+          <button class="btn-outline" style="padding:0.4rem 0.9rem;font-size:0.7rem;">↗ Share</button>
+        </div>
+      </div>
+
+      <div class="bid-item-header">
+        <div class="bid-item-img">
+          <div class="bid-item-img-thumb">🏺</div>
+        </div>
+        <div class="bid-item-meta">
+          <div class="bid-cat">Antiques · Mughal Era · 18th Century</div>
+          <div class="bid-item-title">Brass Hookah Base with Intricate Persian Floral Engravings</div>
+          <p class="bid-item-desc">A rare example of Mughal-era metalwork, this brass hookah base features hand-engraved Persian floral motifs in exceptional condition. Provenance traced to a Lucknow noble family, circa 1780–1800. Certificate of authenticity included.</p>
+          <div class="bid-tags">
+            <span class="bid-tag">Mughal</span>
+            <span class="bid-tag">Brass</span>
+            <span class="bid-tag">18th Century</span>
+            <span class="bid-tag">Lucknow</span>
+            <span class="bid-tag">Authenticated</span>
+          </div>
+          <div class="bid-meta-row">
+            <div class="bid-meta-item">
+              <div class="bid-meta-label">Condition</div>
+              <div class="bid-meta-val">Excellent</div>
+            </div>
+            <div class="bid-meta-item">
+              <div class="bid-meta-label">Dimensions</div>
+              <div class="bid-meta-val">28 × 18 cm</div>
+            </div>
+            <div class="bid-meta-item">
+              <div class="bid-meta-label">Weight</div>
+              <div class="bid-meta-val">1.4 kg</div>
+            </div>
+            <div class="bid-meta-item">
+              <div class="bid-meta-label">Seller</div>
+              <div class="bid-meta-val">Raahat Collectibles ✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price Section -->
+      <div class="bid-price-section">
+        <div class="bid-price-block">
+          <div class="lbl">Current Bid</div>
+          <div class="val gold" id="current-bid">₹82,000</div>
+        </div>
+        <div class="bid-price-block">
+          <div class="lbl">Starting Price</div>
+          <div class="val">₹45,000</div>
+        </div>
+        <div class="bid-price-block">
+          <div class="lbl">Closing In</div>
+          <div class="bid-timer-big" id="bid-countdown">02:34:18</div>
+        </div>
+      </div>
+
+      <!-- Bid Action -->
+      <div class="bid-action-area">
+        <div class="bid-action-title">Place Your Bid</div>
+        <div class="bid-input-row">
+          <div class="bid-prefix">₹</div>
+          <input type="number" class="bid-input" id="bid-amount" value="84000" min="84000" step="1000">
+          <button class="bid-btn-go" onclick="placeBid()">Place Bid →</button>
+        </div>
+        <div class="bid-quick-bids">
+          <span style="font-size:0.68rem;color:var(--text3);align-self:center;letter-spacing:0.08em;text-transform:uppercase;">Quick:</span>
+          <button class="quick-bid-btn" onclick="setQuickBid(84000)">₹84,000</button>
+          <button class="quick-bid-btn" onclick="setQuickBid(87000)">₹87,000</button>
+          <button class="quick-bid-btn" onclick="setQuickBid(90000)">₹90,000</button>
+          <button class="quick-bid-btn" onclick="setQuickBid(95000)">₹95,000</button>
+          <button class="quick-bid-btn" onclick="setQuickBid(100000)">₹1,00,000</button>
+        </div>
+        <div class="bid-warning">⚠️ Minimum increment: ₹1,000. By bidding you agree to our auction terms.</div>
+      </div>
+
+      <!-- Bid History -->
+      <div class="bid-history">
+        <div class="bid-history-title">Bid History — <span id="bid-count">14</span> Bids</div>
+        <div id="bid-history-list">
+          <div class="bid-history-row top-bid">
+            <div class="bid-history-user">
+              <div class="bid-avatar">AK</div>
+              <div>
+                <div class="bid-history-name">Ankit K.</div>
+                <div class="bid-history-time">2 min ago · Top Bidder</div>
+              </div>
+            </div>
+            <div class="bid-history-amount">₹82,000</div>
+          </div>
+          <div class="bid-history-row">
+            <div class="bid-history-user">
+              <div class="bid-avatar">PR</div>
+              <div>
+                <div class="bid-history-name">Priya R.</div>
+                <div class="bid-history-time">8 min ago</div>
+              </div>
+            </div>
+            <div class="bid-history-amount">₹80,000</div>
+          </div>
+          <div class="bid-history-row">
+            <div class="bid-history-user">
+              <div class="bid-avatar">SM</div>
+              <div>
+                <div class="bid-history-name">S. Mehta</div>
+                <div class="bid-history-time">15 min ago</div>
+              </div>
+            </div>
+            <div class="bid-history-amount">₹77,500</div>
+          </div>
+          <div class="bid-history-row">
+            <div class="bid-history-user">
+              <div class="bid-avatar">RA</div>
+              <div>
+                <div class="bid-history-name">R. Agarwal</div>
+                <div class="bid-history-time">22 min ago</div>
+              </div>
+            </div>
+            <div class="bid-history-amount">₹75,000</div>
+          </div>
+          <div class="bid-history-row">
+            <div class="bid-history-user">
+              <div class="bid-avatar">NK</div>
+              <div>
+                <div class="bid-history-name">N. Kumar</div>
+                <div class="bid-history-time">31 min ago</div>
+              </div>
+            </div>
+            <div class="bid-history-amount">₹72,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="bid-sidebar">
+      <div class="bid-sidebar-header">
+        <div class="bid-sidebar-title">Live Chat</div>
+        <div class="bid-live-count"><div class="live-count-dot"></div> 47 watching</div>
+      </div>
+
+      <div class="bid-chat" id="bid-chat">
+        <div class="chat-msg system"><div class="chat-text">🔔 Auction started — Lot #0042</div></div>
+        <div class="chat-msg">
+          <div class="chat-msg-header"><span class="chat-name">Ankit K.</span><span class="chat-time">2m</span></div>
+          <div class="chat-text">Beautiful piece, the engravings look stunning!</div>
+        </div>
+        <div class="chat-msg">
+          <div class="chat-msg-header"><span class="chat-name">Priya R.</span><span class="chat-time">5m</span></div>
+          <div class="chat-text">Is the certificate of authenticity from a recognized appraiser?</div>
+        </div>
+        <div class="chat-msg system"><div class="chat-text">💰 New bid: ₹80,000 by Priya R.</div></div>
+        <div class="chat-msg">
+          <div class="chat-msg-header"><span class="chat-name">Collector_7</span><span class="chat-time">8m</span></div>
+          <div class="chat-text">Certified by Sotheby's India. Very rare find!</div>
+        </div>
+        <div class="chat-msg system"><div class="chat-text">💰 New bid: ₹82,000 by Ankit K.</div></div>
+        <div class="chat-msg">
+          <div class="chat-msg-header"><span class="chat-name">R.Sharma</span><span class="chat-time">12m</span></div>
+          <div class="chat-text">Has anyone seen the condition report? Worth the price?</div>
+        </div>
+      </div>
+
+      <div class="bid-chat-input">
+        <input type="text" class="chat-field" id="chat-input" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="chat-send" onclick="sendChat()">→</button>
+      </div>
+
+      <div class="bid-other-lots">
+        <div class="bid-other-title">More Live Lots</div>
+        <div class="other-lot-item" onclick="showToast('Switching lot…', '🔄')">
+          <div class="other-lot-thumb">🖼️</div>
+          <div>
+            <div class="other-lot-name">Bengal School Watercolour, 1962</div>
+            <div class="other-lot-price">₹6,70,000</div>
+          </div>
+        </div>
+        <div class="other-lot-item" onclick="showToast('Switching lot…', '🔄')">
+          <div class="other-lot-thumb">💎</div>
+          <div>
+            <div class="other-lot-name">Victorian Diamond Necklace</div>
+            <div class="other-lot-price">₹2,15,000</div>
+          </div>
+        </div>
+        <div class="other-lot-item" onclick="showToast('Switching lot…', '🔄')">
+          <div class="other-lot-thumb">📷</div>
+          <div>
+            <div class="other-lot-name">Leica M3 + Summicron 50mm</div>
+            <div class="other-lot-price">₹95,000</div>
+          </div>
+        </div>
+        <div class="other-lot-item" onclick="showToast('Switching lot…', '🔄')">
+          <div class="other-lot-thumb">⌚</div>
+          <div>
+            <div class="other-lot-name">Vintage Omega Constellation</div>
+            <div class="other-lot-price">₹1,40,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 3: SELLER DASHBOARD ===================== -->
+<div class="page" id="page-seller">
+  <div class="seller-layout">
+
+    <!-- Sidebar -->
+    <div class="seller-sidebar">
+      <div class="seller-profile">
+        <div class="seller-avatar">RM</div>
+        <div class="seller-name">Raahat Mehta</div>
+        <div class="seller-role">Premium Seller</div>
+        <div class="seller-verified">✓ Verified Seller</div>
+      </div>
+      <div class="sidebar-nav">
+        <div class="sidebar-section-label">Main</div>
+        <div class="sidebar-nav-item active" onclick="setSellerTab(this)"><span class="sidebar-nav-icon">📊</span> Overview</div>
+        <div class="sidebar-nav-item" onclick="setSellerTab(this)"><span class="sidebar-nav-icon">🔨</span> My Listings</div>
+        <div class="sidebar-nav-item" onclick="setSellerTab(this)"><span class="sidebar-nav-icon">📦</span> Orders</div>
+        <div class="sidebar-nav-item" onclick="setSellerTab(this)"><span class="sidebar-nav-icon">💰</span> Earnings</div>
+        <div class="sidebar-section-label">Account</div>
+        <div class="sidebar-nav-item" onclick="setSellerTab(this)"><span class="sidebar-nav-icon">🌟</span> Reputation</div>
+        <div class="sidebar-nav-item" onclick="setSellerTab(this)"><span class="sidebar-nav-icon">⚙️</span> Settings</div>
+        <div class="sidebar-nav-item" onclick="setSellerTab(this)"><span class="sidebar-nav-icon">🚪</span> Sign Out</div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="seller-main">
+      <div class="seller-page-header">
+        <div>
+          <div class="label">Dashboard</div>
+          <div class="seller-page-title">Good morning, Raahat</div>
+          <div class="seller-page-sub">Monday, 6 April 2026 · 3 auctions ending today</div>
+        </div>
+        <button class="btn-primary" onclick="document.getElementById('new-listing-modal').classList.add('open')">+ New Listing</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-label">Total Revenue</div>
+          <div class="stat-card-val gold">₹4.8L</div>
+          <div class="stat-card-change change-up">↑ 18% this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Active Listings</div>
+          <div class="stat-card-val">7</div>
+          <div class="stat-card-change change-up">↑ 2 new this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Items Sold</div>
+          <div class="stat-card-val green">34</div>
+          <div class="stat-card-change">All time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Seller Rating</div>
+          <div class="stat-card-val">4.9 ★</div>
+          <div class="stat-card-change">Based on 31 reviews</div>
+        </div>
+      </div>
+
+      <!-- Earnings Chart -->
+      <div class="earnings-section">
+        <div class="earnings-card">
+          <div class="earnings-title">Monthly Earnings — 2025</div>
+          <div class="bar-chart">
+            <div class="bar-wrap"><div class="bar" style="height:40%"></div><div class="bar-label">Jan</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:55%"></div><div class="bar-label">Feb</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:35%"></div><div class="bar-label">Mar</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:70%"></div><div class="bar-label">Apr</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:60%"></div><div class="bar-label">May</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:85%"></div><div class="bar-label">Jun</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:50%"></div><div class="bar-label">Jul</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:90%"></div><div class="bar-label">Aug</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:75%"></div><div class="bar-label">Sep</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:100%" style="border-color:var(--gold);background:var(--gold-faint)"></div><div class="bar-label">Oct</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:65%"></div><div class="bar-label">Nov</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:80%"></div><div class="bar-label">Dec</div></div>
+          </div>
+        </div>
+        <div class="earnings-card">
+          <div class="earnings-title">Recent Payouts</div>
+          <div class="payout-list">
+            <div class="payout-item">
+              <div><div class="payout-desc">Lot #0039 — Miniature</div><div class="payout-date">3 Apr 2026</div></div>
+              <div class="payout-amount">+₹62,000</div>
+            </div>
+            <div class="payout-item">
+              <div><div class="payout-desc">Lot #0036 — Textile</div><div class="payout-date">28 Mar 2026</div></div>
+              <div class="payout-amount">+₹34,500</div>
+            </div>
+            <div class="payout-item">
+              <div><div class="payout-desc">Lot #0031 — Coin Set</div><div class="payout-date">15 Mar 2026</div></div>
+              <div class="payout-amount">+₹18,000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Listings Table -->
+      <div class="listings-section">
+        <div class="listings-header">
+          <div class="listings-title">Active &amp; Recent Listings</div>
+          <div style="display:flex;gap:0.6rem;">
+            <select class="form-input" style="padding:0.4rem 0.8rem;font-size:0.72rem;width:auto;">
+              <option>All Status</option>
+              <option>Live</option>
+              <option>Upcoming</option>
+              <option>Sold</option>
+            </select>
+          </div>
+        </div>
+        <table class="listings-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Status</th>
+              <th>Start Price</th>
+              <th>Current / Final</th>
+              <th>Ends</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="lot-thumb-cell"><div class="lot-thumb">🏺</div><div><div class="lot-name">Mughal Brass Hookah Base</div><div class="lot-id">LOT #0042</div></div></div></td>
+              <td><span class="status-badge status-live"><div class="live-dot" style="width:4px;height:4px;margin-right:2px;"></div> Live</span></td>
+              <td class="table-price">₹45,000</td>
+              <td class="table-price gold">₹82,000</td>
+              <td style="font-size:0.78rem;color:var(--text3);">2h 34m</td>
+              <td><div class="table-actions"><button class="table-btn" onclick="showPage('bid')">View</button><button class="table-btn" onclick="showToast('Listing updated','✓')">Edit</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="lot-thumb-cell"><div class="lot-thumb">🖼️</div><div><div class="lot-name">Bengal School Watercolour</div><div class="lot-id">LOT #0043</div></div></div></td>
+              <td><span class="status-badge status-live"><div class="live-dot" style="width:4px;height:4px;margin-right:2px;"></div> Live</span></td>
+              <td class="table-price">₹2,00,000</td>
+              <td class="table-price gold">₹6,70,000</td>
+              <td style="font-size:0.78rem;color:var(--text3);">1h 22m</td>
+              <td><div class="table-actions"><button class="table-btn" onclick="showPage('bid')">View</button><button class="table-btn" onclick="showToast('Listing updated','✓')">Edit</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="lot-thumb-cell"><div class="lot-thumb">📜</div><div><div class="lot-name">Handwritten Urdu Manuscript</div><div class="lot-id">LOT #0045</div></div></div></td>
+              <td><span class="status-badge status-upcoming">Upcoming</span></td>
+              <td class="table-price">₹30,000</td>
+              <td class="table-price">—</td>
+              <td style="font-size:0.78rem;color:var(--text3);">Starts 8 Apr</td>
+              <td><div class="table-actions"><button class="table-btn" onclick="showToast('Listing updated','✓')">Edit</button><button class="table-btn red" onclick="showToast('Listing removed','🗑️')">Remove</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="lot-thumb-cell"><div class="lot-thumb">🪙</div><div><div class="lot-name">Mughal Gold Mohur Coin Set</div><div class="lot-id">LOT #0039</div></div></div></td>
+              <td><span class="status-badge status-sold">Sold</span></td>
+              <td class="table-price">₹50,000</td>
+              <td class="table-price green">₹62,000</td>
+              <td style="font-size:0.78rem;color:var(--text3);">3 Apr 2026</td>
+              <td><div class="table-actions"><button class="table-btn" onclick="showToast('Invoice downloaded','📄')">Invoice</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="lot-thumb-cell"><div class="lot-thumb">🧣</div><div><div class="lot-name">Banarasi Silk Dupatta, 1940s</div><div class="lot-id">LOT #0036</div></div></div></td>
+              <td><span class="status-badge status-sold">Sold</span></td>
+              <td class="table-price">₹12,000</td>
+              <td class="table-price green">₹34,500</td>
+              <td style="font-size:0.78rem;color:var(--text3);">28 Mar 2026</td>
+              <td><div class="table-actions"><button class="table-btn" onclick="showToast('Invoice downloaded','📄')">Invoice</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="lot-thumb-cell"><div class="lot-thumb">✏️</div><div><div class="lot-name">Colonial Map of Avadh, 1858</div><div class="lot-id">LOT #0047</div></div></div></td>
+              <td><span class="status-badge status-draft">Draft</span></td>
+              <td class="table-price">—</td>
+              <td class="table-price">—</td>
+              <td style="font-size:0.78rem;color:var(--text3);">Not scheduled</td>
+              <td><div class="table-actions"><button class="table-btn" onclick="showToast('Listing updated','✓')">Edit</button><button class="table-btn" onclick="showToast('Listing published','🚀')">Publish</button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== NEW LISTING MODAL ===================== -->
+<div class="modal-overlay" id="new-listing-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Create New Listing</div>
+      <button class="modal-close" onclick="document.getElementById('new-listing-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="upload-zone">
+        <div class="upload-icon">📷</div>
+        <div class="upload-text">Drag & drop photos here, or <span>browse files</span></div>
+        <div style="font-size:0.68rem;color:var(--text3);margin-top:0.3rem;">JPG, PNG up to 10MB. Min 3 photos required.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Item Title</label>
+        <input type="text" class="form-input" placeholder="e.g. 18th Century Mughal Brass Hookah Base">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-input">
+            <option>Antiques</option>
+            <option>Fine Art</option>
+            <option>Jewellery</option>
+            <option>Rare Books</option>
+            <option>Coins & Stamps</option>
+            <option>Timepieces</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Condition</label>
+          <select class="form-input">
+            <option>Excellent</option>
+            <option>Very Good</option>
+            <option>Good</option>
+            <option>Fair</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Starting Price (₹)</label>
+          <input type="number" class="form-input" placeholder="45000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Reserve Price (₹)</label>
+          <input type="number" class="form-input" placeholder="Optional">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Auction Start</label>
+          <input type="datetime-local" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Duration</label>
+          <select class="form-input">
+            <option>24 Hours</option>
+            <option>48 Hours</option>
+            <option>72 Hours</option>
+            <option>7 Days</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description & Provenance</label>
+        <textarea class="form-input" rows="4" placeholder="Describe the item's history, provenance, dimensions, and any notable features…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="document.getElementById('new-listing-modal').classList.remove('open')">Save as Draft</button>
+      <button class="btn-primary" onclick="document.getElementById('new-listing-modal').classList.remove('open');showToast('Listing submitted for review!','🚀')">Submit for Review →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SCRIPTS ===================== */ -->
+<script>
+// Page navigation
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-center button').forEach(b => b.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  const navBtn = document.getElementById('nav-' + id);
+  if (navBtn) navBtn.classList.add('active');
+}
+
+// URL Parameter Handling
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const page = params.get('page');
+  const tab = params.get('tab');
+
+  if (page) {
+    showPage(page);
+    if (page === 'auth' && tab) {
+      const tabBtn = Array.from(document.querySelectorAll('.auth-tab')).find(b => 
+        b.textContent.toLowerCase().includes(tab.toLowerCase()) || 
+        (tab === 'register' && b.textContent.toLowerCase().includes('create'))
+      );
+      if (tabBtn) switchTab(tab, tabBtn);
+    }
+  } else {
+    showPage('auth');
+  }
+});
+
+// Theme toggle
+function toggleTheme() {
+  const html = document.documentElement;
+  html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+}
+
+// Auth tabs
+function switchTab(tab, el) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('form-' + tab).classList.add('active');
+}
+
+function handleLogin() { showToast('Welcome back! Redirecting…', '✓'); setTimeout(() => showPage('bid'), 1200); }
+function handleRegister() { showToast('Account created! Verifying…', '🎉'); setTimeout(() => showPage('bid'), 1400); }
+
+// Bid system
+let currentBidVal = 82000;
+let bidCount = 14;
+const names = ['You', 'Ankit K.', 'Priya R.', 'S.Mehta', 'R.Agarwal'];
+
+function setQuickBid(val) {
+  document.getElementById('bid-amount').value = val;
+}
+
+function formatINR(n) {
+  return '₹' + n.toLocaleString('en-IN');
+}
+
+function placeBid() {
+  const inp = document.getElementById('bid-amount');
+  const val = parseInt(inp.value);
+  if (!val || val <= currentBidVal) {
+    showToast('Bid must exceed ' + formatINR(currentBidVal), '⚠️'); return;
+  }
+  currentBidVal = val;
+  bidCount++;
+  document.getElementById('current-bid').textContent = formatINR(val);
+  document.getElementById('bid-count').textContent = bidCount;
+  inp.value = val + 1000;
+
+  const list = document.getElementById('bid-history-list');
+  const prev = list.querySelector('.top-bid');
+  if (prev) prev.classList.remove('top-bid');
+  const row = document.createElement('div');
+  row.className = 'bid-history-row top-bid';
+  row.innerHTML = `<div class="bid-history-user"><div class="bid-avatar">YO</div><div><div class="bid-history-name">You</div><div class="bid-history-time">Just now · Top Bidder</div></div></div><div class="bid-history-amount">${formatINR(val)}</div>`;
+  list.prepend(row);
+
+  addChatMsg('system', `💰 New bid: ${formatINR(val)} by You`);
+  showToast('Bid placed: ' + formatINR(val), '🔨');
+}
+
+// Countdown timer
+let bh = 2, bm = 34, bs = 18;
+setInterval(() => {
+  bs--;
+  if (bs < 0) { bs = 59; bm--; }
+  if (bm < 0) { bm = 59; bh--; }
+  if (bh < 0) { bh = 0; bm = 0; bs = 0; }
+  const el = document.getElementById('bid-countdown');
+  if (el) el.textContent = String(bh).padStart(2,'0') + ':' + String(bm).padStart(2,'0') + ':' + String(bs).padStart(2,'0');
+}, 1000);
+
+// Simulate incoming bids
+const botNames = [['AK','Ankit K.'],['PR','Priya R.'],['SM','S. Mehta'],['VK','V. Kumar'],['LG','L. Gupta']];
+setInterval(() => {
+  if (Math.random() > 0.7) {
+    const inc = (Math.floor(Math.random()*5)+1) * 1000;
+    const newBid = currentBidVal + inc;
+    currentBidVal = newBid;
+    bidCount++;
+    document.getElementById('current-bid').textContent = formatINR(newBid);
+    document.getElementById('bid-count').textContent = bidCount;
+    const b = botNames[Math.floor(Math.random()*botNames.length)];
+    const list = document.getElementById('bid-history-list');
+    const prev = list.querySelector('.top-bid');
+    if (prev) prev.classList.remove('top-bid');
+    const row = document.createElement('div');
+    row.className = 'bid-history-row top-bid';
+    row.innerHTML = `<div class="bid-history-user"><div class="bid-avatar">${b[0]}</div><div><div class="bid-history-name">${b[1]}</div><div class="bid-history-time">Just now · Top Bidder</div></div></div><div class="bid-history-amount">${formatINR(newBid)}</div>`;
+    list.prepend(row);
+    document.getElementById('bid-amount').value = newBid + 1000;
+    addChatMsg('system', `💰 New bid: ${formatINR(newBid)} by ${b[1]}`);
+  }
+}, 8000);
+
+// Chat
+function addChatMsg(type, text, name) {
+  const chat = document.getElementById('bid-chat');
+  const div = document.createElement('div');
+  div.className = 'chat-msg' + (type === 'system' ? ' system' : '');
+  if (type === 'system') {
+    div.innerHTML = `<div class="chat-text">${text}</div>`;
+  } else {
+    div.innerHTML = `<div class="chat-msg-header"><span class="chat-name">${name || 'You'}</span><span class="chat-time">now</span></div><div class="chat-text">${text}</div>`;
+  }
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function sendChat() {
+  const inp = document.getElementById('chat-input');
+  if (!inp.value.trim()) return;
+  addChatMsg('user', inp.value.trim(), 'You');
+  inp.value = '';
+}
+
+// Seller sidebar nav
+function setSellerTab(el) {
+  document.querySelectorAll('.sidebar-nav-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Toast
+let toastTimer;
+function showToast(msg, icon) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-text').textContent = msg;
+  document.getElementById('toast-icon').textContent = icon || '✓';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>

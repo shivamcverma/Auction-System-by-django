@@ -1,0 +1,273 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚡ <span>Bid</span>Vault</div>
+  <div class="nav-links">
+    <a href="/login/?page=bid">Live Auctions</a>
+    <a href="#">Categories</a>
+    <a href="#">How It Works</a>
+    <a href="/login/?page=seller">Sell</a>
+    <button class="nav-cta" onclick="window.location.href='/login/?page=auth&tab=login'">Sign In</button>
+  </div>
+  <div class="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-left">
+    <div class="hero-badge"><div class="hero-badge-dot"></div> Live Auction Platform</div>
+    <h1 class="hero-title">Where Rare <em>Treasures</em><br>Find New Homes</h1>
+    <p class="hero-sub">Participate in transparent, real-time auctions. Bid on exclusive art, antiques, jewellery, and collectibles — from anywhere in the world.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="window.location.href='/login/?page=bid'">Explore Live Bids</button>
+      <button class="btn-secondary" onclick="window.location.href='/login/?page=auth&tab=register'">Register to Sell</button>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">₹4.2<span>Cr+</span></div>
+        <div class="stat-label">Total Volume</div>
+      </div>
+      <div>
+        <div class="stat-val">18<span>K+</span></div>
+        <div class="stat-label">Registered Bidders</div>
+      </div>
+      <div>
+        <div class="stat-val">340<span>+</span></div>
+        <div class="stat-label">Items Sold</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="featured-card">
+      <div class="card-img">
+        <div class="card-img-art">
+          <span class="hammer-icon">🏺</span>
+        </div>
+        <div class="card-live-badge"><div class="live-dot"></div> Live</div>
+        <div class="card-lot">Lot #0042</div>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Antique · Mughal Era</div>
+        <div class="card-title">18th Century Brass Hookah Base with Intricate Engravings</div>
+        <div class="card-bids-row">
+          <div>
+            <div class="bid-info-label">Current Bid</div>
+            <div class="bid-info-val">₹82,000</div>
+          </div>
+          <div class="bid-count"><strong>14</strong> bids placed</div>
+        </div>
+      </div>
+      <div class="timer-bar">
+        <div class="timer-label">Closing in</div>
+        <div class="timer-val" id="hero-timer">02 : 34 : 18</div>
+      </div>
+      <button class="bid-btn" onclick="window.location.href='/login/?page=bid'">Place Your Bid →</button>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="ticker-item">Mughal Miniature <span>₹1.8L</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">19th C. Ivory Chess Set <span>₹3.4L</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">Vintage Leica M3 <span>₹95K</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">Rajasthani Silver Anklet <span>₹42K</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">1962 Bengal School Oil <span>₹6.7L</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">Teak Writing Desk <span>₹1.1L</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">Mughal Miniature <span>₹1.8L</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">19th C. Ivory Chess Set <span>₹3.4L</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">Vintage Leica M3 <span>₹95K</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">Rajasthani Silver Anklet <span>₹42K</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">1962 Bengal School Oil <span>₹6.7L</span> <span class="ticker-sep">◆</span></div>
+    <div class="ticker-item">Teak Writing Desk <span>₹1.1L</span> <span class="ticker-sep">◆</span></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="section-label">Process</div>
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;">
+    <div>
+      <div class="section-title">Simple. Secure.<br>Transparent.</div>
+    </div>
+    <div class="section-sub">From registration to final gavel — our process is designed for trust and ease.</div>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon">👤</div>
+      <div class="step-title">Register & Verify</div>
+      <div class="step-text">Create a free account. Verify your identity in minutes. Get access to all upcoming auctions.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon">🔍</div>
+      <div class="step-title">Browse Lots</div>
+      <div class="step-text">Explore curated listings with high-resolution images, provenance details, and expert assessments.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon">🔨</div>
+      <div class="step-title">Bid in Real-Time</div>
+      <div class="step-text">Place live bids or set a maximum proxy bid. Watch the auction unfold with live updates.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-icon">📦</div>
+      <div class="step-title">Win & Receive</div>
+      <div class="step-text">Secure payment processing followed by insured nationwide delivery right to your door.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE AUCTIONS -->
+<section style="background:var(--dark2);">
+  <div class="auctions-header">
+    <div>
+      <div class="section-label">Featured</div>
+      <div class="section-title">Live Right Now</div>
+    </div>
+    <button class="btn-secondary" style="white-space:nowrap;" onclick="window.location.href='/login/?page=bid'">View All Lots →</button>
+  </div>
+  <div class="auctions-grid">
+    <div class="auction-card">
+      <div class="auction-img" style="background:#1A1612;">🖼️<div class="auction-img-overlay"></div></div>
+      <div class="auction-body">
+        <div class="auction-cat">Fine Art</div>
+        <div class="auction-title">Bengal School — Watercolour on Silk, Signed 1962</div>
+        <div class="auction-footer">
+          <div class="auction-price">₹6,70,000</div>
+          <div class="auction-timer">⏱ 1h 22m left</div>
+        </div>
+      </div>
+    </div>
+    <div class="auction-card">
+      <div class="auction-img" style="background:#121A16;">💎<div class="auction-img-overlay"></div></div>
+      <div class="auction-body">
+        <div class="auction-cat">Jewellery</div>
+        <div class="auction-title">Victorian Rose-Cut Diamond & Emerald Necklace</div>
+        <div class="auction-footer">
+          <div class="auction-price">₹2,15,000</div>
+          <div class="auction-timer">⏱ 3h 10m left</div>
+        </div>
+      </div>
+    </div>
+    <div class="auction-card">
+      <div class="auction-img" style="background:#16161A;">📷<div class="auction-img-overlay"></div></div>
+      <div class="auction-body">
+        <div class="auction-cat">Vintage Electronics</div>
+        <div class="auction-title">Leica M3 Double Stroke with Summicron 50mm Lens</div>
+        <div class="auction-footer">
+          <div class="auction-price">₹95,000</div>
+          <div class="auction-timer">⏱ 6h 45m left</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="cat-section">
+  <div class="section-label">Browse</div>
+  <div class="section-title">Explore Categories</div>
+  <div class="cat-grid">
+    <div class="cat-item"><div class="cat-emoji">🎨</div><div class="cat-name">Fine Art</div><div class="cat-count">42 lots</div></div>
+    <div class="cat-item"><div class="cat-emoji">💍</div><div class="cat-name">Jewellery</div><div class="cat-count">31 lots</div></div>
+    <div class="cat-item"><div class="cat-emoji">🏺</div><div class="cat-name">Antiques</div><div class="cat-count">58 lots</div></div>
+    <div class="cat-item"><div class="cat-emoji">📚</div><div class="cat-name">Rare Books</div><div class="cat-count">19 lots</div></div>
+    <div class="cat-item"><div class="cat-emoji">🪙</div><div class="cat-name">Coins & Stamps</div><div class="cat-count">74 lots</div></div>
+    <div class="cat-item"><div class="cat-emoji">⌚</div><div class="cat-name">Timepieces</div><div class="cat-count">26 lots</div></div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust-banner">
+  <div class="section-label" style="text-align:center;">Why BidVault</div>
+  <h2>Bid with Absolute Confidence</h2>
+  <p>Every lot is verified, every transaction protected.</p>
+  <div class="trust-features">
+    <div>
+      <div class="trust-feature-icon">🔐</div>
+      <div class="trust-feature-title">Verified Sellers Only</div>
+      <div class="trust-feature-text">Every seller goes through a rigorous documentation and identity check before listing any lot on our platform.</div>
+    </div>
+    <div>
+      <div class="trust-feature-icon">📋</div>
+      <div class="trust-feature-title">Expert Provenance Reports</div>
+      <div class="trust-feature-text">Our in-house specialists prepare detailed provenance and condition reports for each item listed.</div>
+    </div>
+    <div>
+      <div class="trust-feature-icon">🚚</div>
+      <div class="trust-feature-title">Insured Delivery</div>
+      <div class="trust-feature-text">All winning lots are packaged by specialists and shipped with full insurance coverage across India.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand" onclick="window.location.href='#'" style="cursor:pointer;">⚡ BidVault</div>
+      <div class="footer-tagline">India's premier online auction house for art, antiques, jewellery & rare collectibles. Connecting discerning buyers with exceptional pieces since 2024.</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Auctions</div>
+      <a href="/login/?page=bid">Live Lots</a>
+      <a href="#">Upcoming</a>
+      <a href="#">Past Results</a>
+      <a href="#">Featured</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Sellers</div>
+      <a href="/login/?page=seller">Consign an Item</a>
+      <a href="#">Seller Guide</a>
+      <a href="#">Fees & Terms</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <a href="#">About Us</a>
+      <a href="#">Press</a>
+      <a href="#">Careers</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 BidVault. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="#">Instagram</a>
+      <a href="#">Twitter / X</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let h = 2, m = 34, s = 18;
+  function tick() {
+    s--;
+    if (s < 0) { s = 59; m--; }
+    if (m < 0) { m = 59; h--; }
+    if (h < 0) { h = 0; m = 0; s = 0; }
+    const el = document.getElementById('hero-timer');
+    if (el) el.textContent = String(h).padStart(2,'0') + ' : ' + String(m).padStart(2,'0') + ' : ' + String(s).padStart(2,'0');
+  }
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
