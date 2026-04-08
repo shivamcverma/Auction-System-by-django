@@ -1,74 +1,48 @@
 :root {
-  --gold: #D4AF37;
+  --gold: #D4AF37; /* Premium Gold */
   --gold-light: #F3E5AB;
   --gold-dim: #998100;
-  --gold-faint: rgba(212, 175, 55, 0.12);
-  --gold-border: rgba(212, 175, 55, 0.22);
-  --red-live: #8B1E1E;
-  --red-dot: #FF4747;
-  --green: #1A6B3A;
-  --green-text: #4ECCA3;
-  --transition: 0.3s ease;
+  --dark: #050505;
+  --dark2: #0F0F0F;
+  --dark3: #1A1A1A;
+  --dark4: #262626;
+  --cream: #FDFCF0;
+  --cream-dim: #D1CEC5;
+  --cream-faint: #807D75;
+  --accent-red: #8B1E1E;
   --glass-bg: rgba(255, 255, 255, 0.02);
   --glass-border: rgba(255, 255, 255, 0.06);
   --glass-blur: blur(24px);
+  --transition: 0.3s ease;
 }
+
 [data-theme="dark"] {
-  --bg: #050505;
-  --bg2: #0F0F0F;
-  --bg3: #1A1A1A;
-  --bg4: #262626;
-  --bg5: #333333;
-  --text: #FDFCF0;
-  --text2: #D1CEC5;
-  --text3: #807D75;
-  --border: rgba(255, 255, 255, 0.08);
-  --border2: rgba(255, 255, 255, 0.04);
-  --input-bg: #111111;
-  --card: #0A0A0A;
-  --card2: #141414;
+  --bg: var(--dark);
+  --bg2: var(--dark2);
+  --bg3: var(--dark3);
+  --text: var(--cream);
+  --text2: var(--cream-dim);
+  --text3: var(--cream-faint);
+  --border: var(--glass-border);
   --nav-bg: rgba(5, 5, 5, 0.65);
-  --shadow: 0 10px 40px rgba(0,0,0,0.8);
-  --overlay: rgba(0,0,0,0.8);
 }
+
 [data-theme="light"] {
   --bg: #FAFAFA;
   --bg2: #F0F0F0;
   --bg3: #EAEAEA;
-  --bg4: #DDDDDD;
-  --bg5: #CCCCCC;
   --text: #1A1A1A;
   --text2: #4A4A4A;
   --text3: #808080;
   --border: rgba(0, 0, 0, 0.1);
-  --border2: rgba(0, 0, 0, 0.05);
-  --input-bg: #FFFFFF;
-  --card: #FFFFFF;
-  --card2: #FAFAFA;
   --nav-bg: rgba(255, 255, 255, 0.7);
-  --shadow: 0 8px 30px rgba(0,0,0,0.08);
-  --overlay: rgba(255,255,255,0.7);
 }
 
-/* ===================== RESET & BASE ===================== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  transition: background var(--transition), color var(--transition);
-  overflow-x: hidden;
-}
-input, button, select, textarea { font-family: inherit; }
-a { text-decoration: none; color: inherit; }
-
-/* ===================== NAV ===================== */
+/* ===================== NAV - GLASSMORPHISM (100% SYNC) ===================== */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 1rem 4vw;
+  padding: 1.2rem 5vw;
   background: var(--nav-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
@@ -77,29 +51,43 @@ nav {
 }
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem; font-weight: 700; color: var(--gold);
-  cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
-  letter-spacing: 0.06em;
+  font-size: 1.6rem; font-weight: 700; letter-spacing: 0.06em;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 0.5rem;
+  cursor: pointer;
 }
 .nav-logo span { color: var(--text); }
-.nav-center { display: flex; gap: 2rem; }
-.nav-center button {
-  background: none; border: none; cursor: pointer;
+
+.nav-links { display: flex; align-items: center; gap: 2.5rem; }
+
+.nav-links a {
+  font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text2); text-decoration: none; font-weight: 400;
+  transition: color 0.3s ease;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+.nav-cta {
   font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--text2); padding: 0.4rem 0; font-weight: 400;
-  position: relative; transition: color 0.3s;
+  padding: 0.6rem 1.6rem;
+  border: 1px solid var(--gold);
+  color: var(--gold); background: transparent;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: all 0.3s ease;
+  border-radius: 2px;
 }
-.nav-center button::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-  height: 1px; background: var(--gold); transform: scaleX(0);
-  transition: transform 0.3s;
-}
-.nav-center button:hover, .nav-center button.active { color: var(--gold); }
-.nav-center button.active::after, .nav-center button:hover::after { transform: scaleX(1); }
-.nav-right { display: flex; align-items: center; gap: 1.2rem; }
+.nav-cta:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+
+/* Theme toggle (Outside main flow) */
 .theme-toggle {
   width: 44px; height: 24px; border-radius: 12px;
-  background: var(--bg4); border: 1px solid var(--border);
+  background: var(--bg3); border: 1px solid var(--border);
   cursor: pointer; position: relative; transition: background 0.3s;
   flex-shrink: 0;
 }
@@ -112,15 +100,9 @@ nav {
 .theme-icon { font-size: 0.75rem; position: absolute; top: 50%; transform: translateY(-50%); }
 .theme-icon-moon { left: 6px; }
 .theme-icon-sun { right: 6px; }
-.btn-nav {
-  font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 0.6rem 1.4rem; border: 1px solid var(--gold);
-  color: var(--gold); background: transparent; cursor: pointer;
-  transition: all 0.3s; border-radius: 2px;
-}
-.btn-nav:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 10px rgba(212,175,55,0.3); }
-.btn-nav.filled { background: var(--gold); color: var(--bg); }
-.btn-nav.filled:hover { background: var(--gold-light); }
+
+.hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; }
+.hamburger span { width: 24px; height: 1.5px; background: var(--text2); display: block; transition: all 0.3s ease; }
 
 /* ===================== PAGE SYSTEM ===================== */
 .page { display: none; min-height: 100vh; padding-top: 66px; }
