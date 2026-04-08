@@ -513,14 +513,64 @@ nav {
   justify-content: center; font-weight: 600; box-shadow: 0 0 10px rgba(139,30,30,0.5);
 }
 
-/* ===================== RESPONSIVE ===================== */
+/* ===================== RESPONSIVE (100% SYNC) ===================== */
 @media (max-width: 1024px) {
   .bid-room-layout { grid-template-columns: 1fr; }
   .bid-sidebar { display: none; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .earnings-section { grid-template-columns: 1fr; }
 }
+
 @media (max-width: 768px) {
+  nav { padding: 1rem 5vw; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  
+  /* Mobile Nav Active */
+  .nav-links.active {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 100vh;
+    background: #0F0F0F !important; /* Solid dark background for reliability */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 8rem 2rem;
+    gap: 1.5rem;
+    border-left: 1px solid var(--gold);
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    z-index: 9999; /* Super high z-index */
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+  }
+  
+  .nav-links.active a {
+    font-size: 1.2rem !important;
+    padding: 1rem;
+    color: var(--gold) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    width: 100%;
+    display: block;
+  }
+  
+  .nav-links.active .nav-cta {
+    margin-top: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  .hamburger { z-index: 10000 !important; } /* Stay on top of the menu */
+  .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--gold); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--gold); }
+
   #page-auth.active { grid-template-columns: 1fr; }
   .auth-left { display: none; }
   .auth-right { padding: 3rem; }
@@ -530,10 +580,10 @@ nav {
   .bid-item-img { width: 100%; height: 250px; }
   .bid-price-section { grid-template-columns: 1fr 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
-  .nav-center { display: none; }
   .form-row { grid-template-columns: 1fr; }
   .seller-main { padding: 2rem; }
 }
+
 @media (max-width: 480px) {
   .stats-grid { grid-template-columns: 1fr; }
   .bid-price-section { grid-template-columns: 1fr; }

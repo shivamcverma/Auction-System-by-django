@@ -131,11 +131,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'auction-system-by-django.onrender.com'
-]
+ALLOWED_HOSTS = ['*']
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

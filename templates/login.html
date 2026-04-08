@@ -88,8 +88,8 @@
             <button class="btn-outline" onclick="showPage('seller')">Go to Seller Dashboard</button>
             <div class="form-divider" style="margin: 1.5rem 0;"><span>or</span></div>
             <button class="btn-nav" style="border: 1px solid var(--border); width: 100%;"
-                onclick="window.location.href='{% url 'logout' %}';">
-                Logout from Account
+              onclick="window.location.href='{% url 'logout' %}';">
+              Logout from Account
             </button>
           </div>
         </div>
@@ -948,6 +948,25 @@
       t.classList.add('show');
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // Mobile Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+
+      // Close menu when clicking a link
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+        });
+      });
     }
   </script>
 </body>

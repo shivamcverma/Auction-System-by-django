@@ -30,51 +30,7 @@
 .page.active {
   display: block;
 }
-  /* NAV - Glassmorphism */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 5vw;
-    background: rgba(5, 5, 5, 0.65);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border-bottom: 1px solid var(--glass-border);
-    transition: all 0.3s ease;
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem; font-weight: 700; letter-spacing: 0.06em;
-    color: var(--gold);
-    display: flex; align-items: center; gap: 0.5rem;
-    cursor: pointer;
-  }
-  .nav-logo span { color: var(--cream); }
-  .nav-links { display: flex; align-items: center; gap: 2.5rem; }
-  .nav-links a {
-    font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--cream-dim); text-decoration: none; font-weight: 400;
-    transition: color 0.3s ease;
-    position: relative;
-  }
-  .nav-links a::after {
-    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-    height: 1px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s ease;
-  }
-  .nav-links a:hover { color: var(--cream); }
-  .nav-links a:hover::after { transform: scaleX(1); }
-  
-  .nav-cta {
-    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 0.6rem 1.6rem;
-    border: 1px solid var(--gold);
-    color: var(--gold); background: transparent;
-    cursor: pointer; font-family: 'DM Sans', sans-serif;
-    transition: all 0.3s ease;
-    border-radius: 2px;
-  }
-  .nav-cta:hover { background: var(--gold); color: var(--dark); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
-  .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; }
-  .hamburger span { width: 24px; height: 1.5px; background: var(--cream-dim); display: block; transition: all 0.3s ease; }
+  /* Nav styles are now handled by navbar.css */
 
   /* HERO - Aurora Gradient */
   .hero {
@@ -330,12 +286,4 @@
     .hero-left { display: flex; flex-direction: column; align-items: center; }
     .hero-actions { justify-content: center; }
     .hero-stats { justify-content: center; border-top: none; padding-top:0; margin-top:2rem;}
-    .hero-right { margin-top: 3rem; }
-    .steps-grid, .auctions-grid, .trust-features { grid-template-columns: 1fr; }
-    .auctions-header { flex-direction: column; align-items: stretch; gap: 1.5rem; }
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
-    section { padding: 4rem 5vw; }
-    .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
-    .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
   }
