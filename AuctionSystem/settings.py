@@ -120,6 +120,11 @@ import os
 STATICFILES_DIRS = [
     BASE_DIR / 'AuctionSystem' / 'static',
 ]
+import os
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
