@@ -118,10 +118,11 @@ USE_TZ = True
 
 import os
 
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),   # 👈 सही path
+    os.path.join(BASE_DIR, 'AuctionSystem', 'static'),  # 👈 तुम्हारा सही path
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
